@@ -23,15 +23,16 @@
           "safe",
           "rainbow",
           "uniswap"
-          // Add other wallet schemes names here
         ]
-      }
+      },
+      "bundleIdentifier": "com.mobilecomputing.project5"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.mobilecomputing.project5"
     },
     "web": {
       "favicon": "./assets/favicon.png"
