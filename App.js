@@ -32,7 +32,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{
         headerShown: false,
       }}>
-     {!isFirstLaunch && (<Stack.Screen name="onboarding" component={OnboardingScreen} />)}
+     {isFirstLaunch && (<Stack.Screen name="onboarding" component={OnboardingScreen} />)}
       <Stack.Screen name="landing" component={Landing} />
       </Stack.Navigator>
     </NavigationContainer>
