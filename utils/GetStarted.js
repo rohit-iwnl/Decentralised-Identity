@@ -12,7 +12,7 @@ import Animated, { withSpring, withTiming } from "react-native-reanimated";
 import { interpolateColor, useAnimatedStyle } from "react-native-reanimated";
 import { useNavigation } from "@react-navigation/native";
 
-const GetStarted = ({  flatListRef,flatListIndex, dataLength, x }) => {
+const GetStarted = ({ flatListRef, flatListIndex, dataLength, x }) => {
   const { width, height } = Dimensions.get("window");
   const navigation = useNavigation();
 
@@ -71,18 +71,17 @@ const GetStarted = ({  flatListRef,flatListIndex, dataLength, x }) => {
 
   return (
     <Pressable
-  onPress={() => {
-    console.log(flatListIndex.value);
+      onPress={() => {
         if (flatListIndex.value < dataLength - 1) {
           flatListRef.current.scrollToIndex({
-            index:flatListIndex.value + 1,
+            index: flatListIndex.value + 1,
           });
         } else {
           //Naviagte to the next screen
           navigation.replace("landing");
         }
       }}
-     >
+    >
       <Animated.View
         style={[
           styles.container,
@@ -117,5 +116,10 @@ const styles = StyleSheet.create({
   arrow: {
     position: "absolute",
   },
-  textButton: { color: "white", fontSize: 22,fontWeight:'bold', position: "absolute" },
+  textButton: {
+    color: "white",
+    fontSize: 22,
+    fontWeight: "bold",
+    position: "absolute",
+  },
 });

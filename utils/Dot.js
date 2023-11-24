@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     backgroundColor: "#fff",
-    marginHorizontal: 10,
+    marginHorizontal: 8,
   },
 });

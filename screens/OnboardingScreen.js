@@ -1,8 +1,19 @@
-import { StyleSheet, Text, View, Image, Dimensions, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Dimensions,
+  FlatList,
+} from "react-native";
 import React from "react";
 import Onboarding from "react-native-onboarding-swiper";
 import { useNavigation } from "@react-navigation/native";
-import Animated, { useAnimatedRef, useAnimatedScrollHandler, useSharedValue } from "react-native-reanimated";
+import Animated, {
+  useAnimatedRef,
+  useAnimatedScrollHandler,
+  useSharedValue,
+} from "react-native-reanimated";
 import animationData from "../utils/AnimationData";
 import RenderItem from "../utils/RenderItem";
 import Pagination from "../utils/Pagination";
@@ -16,9 +27,9 @@ const OnboardingScreen = () => {
   const { width, height } = Dimensions.get("window");
 
   const onScrollEvent = useAnimatedScrollHandler({
-    onScroll:event => {
+    onScroll: (event) => {
       x.value = event.contentOffset.x;
-    }
+    },
   });
 
   const onViewableItemsChanged = ({ viewableItems }) => {
@@ -26,13 +37,11 @@ const OnboardingScreen = () => {
       flatListIndex.value = viewableItems[0].index;
     }
   };
-  
-
 
   return (
     <View style={styles.container}>
       <Animated.FlatList
-      ref={flatListRef}
+        ref={flatListRef}
         data={animationData}
         onScroll={onScrollEvent}
         renderItem={({ item, index }) => {
@@ -52,7 +61,12 @@ const OnboardingScreen = () => {
       />
       <View style={styles.bottomContainer}>
         <Pagination data={animationData} x={x} />
-        <GetStarted flatListRef={flatListRef} flatListIndex={flatListIndex} dataLength={animationData.length} x={x}/>
+        <GetStarted
+          flatListRef={flatListRef}
+          flatListIndex={flatListIndex}
+          dataLength={animationData.length}
+          x={x}
+        />
       </View>
     </View>
   );
@@ -65,14 +79,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bottomContainer: {
-    position:'absolute',
-    bottom:20,
-    left:0,
-    right:0,
-    marginHorizontal:20,
-    paddingVertical:30,
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center'
+    position: "absolute",
+    bottom: 20,
+    left: 0,
+    right: 0,
+    marginHorizontal: 20,
+    paddingVertical: 30,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });

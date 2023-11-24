@@ -8,8 +8,23 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import OnboardingScreen from "./screens/OnboardingScreen";
 import Landing from "./screens/Landing/Landing";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 
 export default function App() {
+  const [isFirstLaunch, setIsFirstLaunch] = useState(false);
+
+  useEffect(() => {
+    AsyncStorage.getItem("alreadyLaunched").then((value) => {
+      if (value == null) {
+        AsyncStorage.setItem("alreadyLaunched", "true");
+        setIsFirstLaunch(true);
+      } else {
+        setIsFirstLaunch(false);
+      }
+    });
+  }, []);
+
   const Stack = createNativeStackNavigator();
   return (
     <SafeAreaProvider>
@@ -17,7 +32,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="onboarding" component={OnboardingScreen} />
+     {!isFirstLaunch && (<Stack.Screen name="onboarding" component={OnboardingScreen} />)}
       <Stack.Screen name="landing" component={Landing} />
       </Stack.Navigator>
     </NavigationContainer>
