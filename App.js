@@ -1,5 +1,10 @@
 // Import polyfills
 import "@thirdweb-dev/react-native-compat";
+import {
+  ConnectWallet,
+  ThirdwebProvider,
+  metamaskWallet,
+} from "@thirdweb-dev/react-native";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Alert } from "react-native";
 import { Button } from "react-native-elements";
@@ -10,6 +15,8 @@ import Landing from "./screens/Landing/Landing";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
+import LandingScreen from "./screens/Landing/LandingScreen";
+import RegisterScreen from "./screens/Landing/RegisterScreen";
 
 export default function App() {
   const [isFirstLaunch, setIsFirstLaunch] = useState(false);
@@ -27,16 +34,31 @@ export default function App() {
 
   const Stack = createNativeStackNavigator();
   return (
-    <SafeAreaProvider>
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{
-        headerShown: false,
-      }}>
-     {isFirstLaunch && (<Stack.Screen name="onboarding" component={OnboardingScreen} />)}
-      <Stack.Screen name="landing" component={Landing} />
-      </Stack.Navigator>
-    </NavigationContainer>
-    </SafeAreaProvider>
+    <ThirdwebProvider
+      activeChain="mumbai"
+      clientId="cfb5750fd32101e1048951d071e61205"
+      supportedWallets={[
+        metamaskWallet({
+          recommended: true,
+        }),
+      ]}
+    >
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            {isFirstLaunch && (
+              <Stack.Screen name="onboarding" component={OnboardingScreen} />
+            )}
+            <Stack.Screen name="landing" component={LandingScreen} />
+            <Stack.Screen name="register" component={RegisterScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </ThirdwebProvider>
   );
 }
 
