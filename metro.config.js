@@ -2,6 +2,7 @@
 const { getDefaultConfig } = require("expo/metro-config");
 const extraNodeModules = require("node-libs-browser");
 const config = getDefaultConfig(__dirname);
+config.resolver.sourceExts.push('cjs');
 config.resolver.extraNodeModules = extraNodeModules;
 config.transformer.getTransformOptions = async () => ({
   transform: {

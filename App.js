@@ -1,7 +1,4 @@
-// Import polyfills
-import "@thirdweb-dev/react-native-compat";
 import {
-  ConnectWallet,
   ThirdwebProvider,
   metamaskWallet,
 } from "@thirdweb-dev/react-native";
@@ -17,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import LandingScreen from "./screens/Landing/LandingScreen";
 import RegisterScreen from "./screens/Landing/RegisterScreen";
+import HomeScreen from "./screens/HomeScreens/HomeScreen";
 
 export default function App() {
   const [isFirstLaunch, setIsFirstLaunch] = useState(false);
@@ -37,15 +35,12 @@ export default function App() {
     <ThirdwebProvider
       activeChain="mumbai"
       clientId="cfb5750fd32101e1048951d071e61205"
-      supportedWallets={[
-        metamaskWallet({
-          recommended: true,
-        }),
-      ]}
+      supportedWallets={[metamaskWallet()]}
     >
       <SafeAreaProvider>
         <NavigationContainer>
           <Stack.Navigator
+            initialRouteName="login"
             screenOptions={{
               headerShown: false,
             }}
@@ -55,6 +50,7 @@ export default function App() {
             )}
             <Stack.Screen name="landing" component={LandingScreen} />
             <Stack.Screen name="register" component={RegisterScreen} />
+            <Stack.Screen name="home" component={HomeScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

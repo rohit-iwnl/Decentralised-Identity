@@ -12,14 +12,31 @@ import { StatusBar } from "expo-status-bar";
 import { Button, Input } from "react-native-elements";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import { KeyboardAvoidingView } from "react-native";
+import {app} from "../../utils/Firebase/FirebaseConfig";
+import {getAuth, signInWithEmailAndPassword} from "@firebase/auth";
+const auth = getAuth(app);
+
 
 const LandingScreen = ({ navigation }) => {
+
+  const [emailAddress, setEmailAddress] = useState("");
+  const [password, setPassword] = useState("");
   const loginFn = () => {
-    if (walletAddress === "" || password === "") {
+    if (emailAddress === "" || password === "") {
       Alert.alert("Please fill all fields");
     } else {
-      console.log(walletAddress, password);
-      Alert.alert("Login");
+      handleLogin();
+    }
+  };
+
+  const handleLogin = async () =>{
+    try {
+      await signInWithEmailAndPassword(auth, emailAddress, password);
+
+      navigation.navigate("home");
+    } catch (error) {
+      console.error("Login error:", error.message);
+      Alert.alert("Incorrect Credentials. Please try again.");
     }
   };
 
@@ -27,8 +44,8 @@ const LandingScreen = ({ navigation }) => {
     navigation.push("register");
   };
 
-  const [walletAddress, setWalletAddress] = useState("");
-  const [password, setPassword] = useState("");
+
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,7 +63,7 @@ const LandingScreen = ({ navigation }) => {
           <View style={styles.inputContainer}>
             <Input
               onChangeText={(e) => {
-                setWalletAddress(e);
+                setEmailAddress(e);
               }}
               placeholder="Wallet Address"
               leftIcon={<Ionicon name="wallet-outline" size={22} />}
